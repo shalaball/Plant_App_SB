@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plant Identifier</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🌿 Plant Identifier</h1>
+      <p class="subtitle">Upload a photo to learn about your plant</p>
+    </header>
+
+    <section class="upload-section">
+      <div class="drop-zone" id="dropZone">
+        <div class="drop-icon">📷</div>
+        <p>Drag & drop a photo here, or</p>
+        <label class="btn-upload" for="fileInput">Choose Photo</label>
+        <input type="file" id="fileInput" accept="image/*" hidden />
+      </div>
+      <div class="preview-wrap" id="previewWrap" hidden>
+        <img id="previewImg" alt="Plant preview" />
+        <button class="btn-clear" id="clearBtn">✕ Clear</button>
+      </div>
+      <button class="btn-identify" id="identifyBtn" disabled>Identify Plant</button>
+    </section>
+
+    <div class="spinner" id="spinner" hidden>
+      <div class="leaf-spin">🌱</div>
+      <p>Analyzing your plant…</p>
+    </div>
+
+    <section class="result-section" id="resultSection" hidden>
+      <div class="plant-header">
+        <div>
+          <h2 id="commonName"></h2>
+          <p class="species" id="species"></p>
+          <p class="family" id="family"></p>
+        </div>
+        <span class="confidence-badge" id="confidenceBadge"></span>
+      </div>
+      <p class="description" id="description"></p>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">☀️</div>
+          <h3>Light</h3>
+          <p class="card-highlight" id="lightReq"></p>
+          <p id="lightDetails"></p>
+        </div>
+        <div class="card">
+          <div class="card-icon">💧</div>
+          <h3>Watering</h3>
+          <p class="card-highlight" id="waterFreq"></p>
+          <p id="waterDetails"></p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🌡️</div>
+          <h3>Care</h3>
+          <p class="card-highlight" id="careDiff"></p>
+          <p id="careTemp"></p>
+          <p id="careHumidity"></p>
+        </div>
+      </div>
+
+      <div class="tips-section">
+        <h3>Care Tips</h3>
+        <ul id="careTips"></ul>
+      </div>
+
+      <button class="btn-new" id="newBtn">Identify Another Plant</button>
+    </section>
+
+    <div class="error-msg" id="errorMsg" hidden></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
