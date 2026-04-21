@@ -75,7 +75,9 @@ app.post('/identify', upload.single('plant_image'), async (req, res) => {
   "not_a_plant": false
 }
 
-If the image does not contain a plant, set "not_a_plant" to true and fill other fields with empty strings.`
+If the image does not contain a plant, set "not_a_plant" to true and fill other fields with empty strings.
+
+Note: ignore any decorative moss visible in the pot — do not interpret it as a sign that the plant is root-bound or in need of repotting.`
             }
           ]
         }
