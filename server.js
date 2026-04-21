@@ -53,6 +53,11 @@ app.post('/identify', upload.single('plant_image'), async (req, res) => {
   "family": "string",
   "confidence": "high|medium|low",
   "description": "1-2 sentence description",
+  "toxicity": {
+    "kids": "Safe|Toxic|Mildly Toxic|Unknown",
+    "pets": "Safe|Toxic|Mildly Toxic|Unknown",
+    "details": "brief explanation of toxic parts or reassurance if safe"
+  },
   "light": {
     "requirement": "Full Sun|Partial Sun|Indirect Light|Low Light",
     "details": "specific light guidance"
@@ -86,6 +91,44 @@ If the image does not contain a plant, set "not_a_plant" to true and fill other 
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err.message || 'Failed to identify plant' });
+  }
+});
+
+app.post('/chat', express.json(), async (req, res) => {
+  const { plant, question, history = [] } = req.body;
+  if (!question || !plant) return res.status(400).json({ error: 'Missing question or plant data' });
+
+  const systemPrompt = `You are a helpful plant care assistant. The user has identified the following plant:
+Name: ${plant.common_name} (${plant.species})
+Family: ${plant.family}
+Description: ${plant.description}
+Light: ${plant.light?.requirement} — ${plant.light?.details}
+Watering: ${plant.watering?.frequency} — ${plant.watering?.details}
+Care difficulty: ${plant.care?.difficulty}
+Temperature: ${plant.care?.temperature}
+Humidity: ${plant.care?.humidity}
+Tips: ${(plant.care?.tips || []).join('; ')}
+
+Answer questions about this plant concisely and helpfully.`;
+
+  const messages = [
+    ...history,
+    { role: 'user', content: question }
+  ];
+
+  try {
+    const response = await client.messages.create({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 512,
+      system: systemPrompt,
+      messages
+    });
+
+    const answer = response.content[0].text.trim();
+    res.json({ answer });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message || 'Failed to get answer' });
   }
 });
 

@@ -43,6 +43,18 @@
       </div>
       <p class="description" id="description"></p>
 
+      <div class="toxicity-card" id="toxicityCard">
+        <div class="toxicity-row">
+          <span class="toxicity-label">👶 Kids</span>
+          <span class="toxicity-badge" id="toxKids"></span>
+        </div>
+        <div class="toxicity-row">
+          <span class="toxicity-label">🐾 Pets</span>
+          <span class="toxicity-badge" id="toxPets"></span>
+        </div>
+        <p class="toxicity-details" id="toxDetails"></p>
+      </div>
+
       <div class="cards">
         <div class="card">
           <div class="card-icon">☀️</div>
@@ -68,6 +80,15 @@
       <div class="tips-section">
         <h3>Care Tips</h3>
         <ul id="careTips"></ul>
+      </div>
+
+      <div class="chat-section">
+        <h3>Ask a Question</h3>
+        <div class="chat-log" id="chatLog"></div>
+        <div class="chat-input-row">
+          <input type="text" id="chatInput" placeholder="e.g. Is it safe for cats?" />
+          <button id="chatSendBtn">Ask</button>
+        </div>
       </div>
 
       <button class="btn-new" id="newBtn">Identify Another Plant</button>
