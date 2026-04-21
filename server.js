@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const multer = require('multer');
 const Anthropic = require('@anthropic-ai/sdk');
+const path = require('path');
 
 const app = express();
 const PORT = 3000;
@@ -17,7 +18,7 @@ const upload = multer({
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/identify', upload.single('plant_image'), async (req, res) => {
   if (!req.file) {
